@@ -1,0 +1,33 @@
+[project]
+name = "mcp-experiments"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.116.0",
+    "fastmcp>=2.10.2",
+    "loguru>=0.7.3",
+    "mcp[cli]>=1.10.1",
+    "pre-commit>=4.2.0",
+    "pydantic-ai>=0.4.0",
+    "pyjwt>=2.10.1",
+    "ruff>=0.12.2",
+]
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+# Enable pycodestyle ('E') and Pyflakes ('F') codes by default
+select = ["E", "F"]
+ignore = []
+fixable = ["E", "F"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.lint.per-file-ignores]
+# Ignore unused imports in __init__.py files
+"__init__.py" = ["F401"]
