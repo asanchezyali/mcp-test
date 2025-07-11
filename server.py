@@ -18,15 +18,11 @@ load_dotenv()
 
 # Initialize the MCP server with your tools
 mcp = FastMCP(
-    name="MCP Server for get information about course of technology",
-    instructions="You are a helpful assistant that can answer questions about the course of technology",
+    name="MCP Server for get information about course of technology"
 )
 
 
-@mcp.tool(
-    name="lesson_tool",
-    description="Get the lesson content by lesson_id",
-)
+@mcp.tool()
 def lesson_tool(lesson_id: str) -> str:
     lessons = {
         "1": """
