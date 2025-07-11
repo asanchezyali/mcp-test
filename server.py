@@ -22,10 +22,8 @@ mcp = FastMCP(
 )
 
 
-@mcp.tool()
-def lesson_tool(lesson_id: str) -> str:
-    lessons = {
-        "1": """
+lessons = {
+1: """
 Intención del Mentor: [natural] Voz sugerida: cálida, cercana, pero con autoridad serena.
 Lección 1.1: ¿Qué es la Automatización de Flujos de Trabajo?
 Mentor: [soft ambient sigh] Bueno… [pausa breve] imaginate esto: Son todas esas tareas repetitivas que… día tras día… consumen tu tiempo y tu energía. Copiar y pegar datos de un lado a otro… generar el mismo informe cada semana… enviar emails de seguimiento… [whispers] ¿Te suena familiar? La automatización es usar la tecnología para que esas tareas… se encarguen solas, con mínima intervención humana. Pero no es solo rapidez: es como construir un tejido conectivo digital donde apps que nunca se hablan… de pronto, colaboran en perfecta armonía. [inspirational tone] Los beneficios: Eficiencia y productividad: las máquinas se ocupan de lo monótono, tú te centras en la creatividad y la estrategia. Funcionamiento 24/7: los robots no duermen. Menos errores: un flujo automatizado sigue las reglas… siempre al pie de la letra. Colaboración clara: ves en tiempo real dónde se atasca un proceso. ¿El resultado? Procesos más rápidos, datos impecables y… un equipo libre para lo que importa de verdad. [soft laugh] Y posibilidades… casi infinitas: dar la bienvenida a un nuevo empleado, gestionar tickets, sincronizar marketing y ventas… ¡incluso extraer datos de páginas web!
@@ -36,7 +34,7 @@ Mentor: [measured tone] Hora de elegir tu ruta: n8n Cloud Suscripción premium. 
 Lección 1.4: Configuración del Entorno de Trabajo
 Mentor: [encouraging breath] Una vez decidida la ruta… Cloud: registro rápido, prueba gratuita, y en minutos… tu instancia lista en el navegador. Self-Hosted: abre tu terminal, copia el comando Docker oficial, pégalo y presiona Enter. [small chuckle] En un suspiro, tendrás n8n corriendo localmente. [warm tone] Con esto cerramos el Módulo 1. Repasá bien, responde el quiz final y… ¡te veo en el Módulo 2 para conocer la interfaz y armar tu primer flujo!
 """,
-        "2": """
+2: """
 Lección 2.1: Tour por el Editor de n8n
 Mentor: [clear tone] En esta lección conocerás las tres áreas principales del editor de n8n: Panel de Control (Dashboard/Overview) Al entrar, verás la lista de todos tus workflows. Cada uno muestra su estado: “Activo” o “Inactivo”. Usa el botón Create Workflow para iniciar uno nuevo. El Lienzo (Canvas) Es tu área de trabajo visual e ilimitada. Arrastra nodos desde el panel de nodos y conéctalos mediante flechas. A cada conexión le corresponde un orden de ejecución. Panel de Nodos Haz clic en + para abrir la biblioteca de nodos. Cuenta con más de 400 integraciones y nodos de lógica. Utiliza el buscador para filtrar por nombre de aplicación (por ejemplo, “Google Sheets”) o función (“Schedule”). [short pause] Además, al pasar el cursor sobre un nodo en el lienzo verás controles rápidos: Execute step: prueba solo ese nodo. Deactivate: excluye el nodo de la ejecución. Delete: lo elimina del lienzo. … (menú contextual): opciones como renombrar, copiar o duplicar.
 Lección 2.2: Gestión de Credenciales
@@ -44,7 +42,7 @@ Mentor: [straightforward] Para que n8n interactúe con servicios externos, debes
 Lección 2.3: Ejecuciones y Depuración
 Mentor: [calm] Cada vez que ejecutas un workflow, n8n genera un log de ejecución. Estos registros son esenciales para monitorear y depurar. Tipos de ejecución Manual: usa Test Workflow o Execute step para pruebas. Producción: sucede automáticamente cuando el workflow está Activo y su trigger se dispara. Pestaña “Executions” Muestra el historial completo de ejecuciones. Indica resultado (éxito/fallo), fecha y duración. Visualización de una ejecución Al hacer clic en un registro, el lienzo se abre en modo solo lectura. Los nodos en verde se ejecutaron correctamente; los de rojo, fallaron. Salida de un nodo (“OUTPUT”) Al probar un nodo con Execute step, verás su resultado en JSON. Utiliza esta información para validar la configuración y ajustar expresiones. Debug in editor Para errores de producción, activa “Debug in editor”. n8n cargará el workflow con los datos exactos que causaron el fallo, permitiéndote corregir y volver a probar sin cambiar los datos. Quiz del Módulo 2 ¿Cuál es la función principal del Panel de Control? ¿Cómo se añade un nuevo nodo al lienzo? Nombra dos tipos de credenciales que se pueden gestionar en n8n. ¿Qué comando utilizas para probar un solo nodo? ¿Qué información muestra la pestaña “Executions”? (Continúa con cinco preguntas de “identificar en la imagen” sobre las áreas del editor y los iconos de control de nodos.)
 """,
-        "3": """
+3: """
 Los Bloques de Construcción: Nodos y Datos
 Lección 3.1: Anatomía de un Flujo de Trabajo: Nodos y Conexiones
 Mentor: [clear tone] En n8n, cada flujo de trabajo se construye con nodos conectados entre sí. Existen dos categorías principales:
@@ -73,8 +71,15 @@ Para acceder a un campo address.city dentro de json, la expresión correcta es: 
 Escribe la sintaxis básica que encierra cualquier expresión en n8n: markdown Copy Edit ______
 Cuando termines el quiz, revisa tus respuestas y asegúrate de comprender cada concepto. ¡Nos vemos en el Módulo 4!
 """,
-    }
-    return lessons[lesson_id]
+}
+
+
+@mcp.tool()
+def lesson_tool(lesson_id: int) -> str:
+    if lesson_id in lessons:
+        return lessons[lesson_id]
+    else:
+        return "Lesson not found"
 
 
 transport = SseServerTransport("/messages/")
