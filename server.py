@@ -74,7 +74,10 @@ Cuando termines el quiz, revisa tus respuestas y asegúrate de comprender cada c
 }
 
 
-@mcp.tool()
+@mcp.tool(
+    name="lesson_tool",
+    description="Get the lesson content for a given lesson ID",
+)
 def lesson_tool(lesson_id: int) -> str:
     if lesson_id in lessons:
         return lessons[lesson_id]
@@ -138,7 +141,7 @@ def generate_token(request: TokenRequest):
     if request.client_id in CLIENTS and CLIENTS[request.client_id] == request.client_secret:
         payload = {
             "sub": request.client_id,
-            "exp": datetime.datetime.now() + datetime.timedelta(minutes=60),
+            "exp": datetime.datetime.now() + datetime.timedelta(days=30),
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
         return {"access_token": token}
