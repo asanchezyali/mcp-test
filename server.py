@@ -133,7 +133,7 @@ def generate_token(request: TokenRequest):
     if request.client_id in CLIENTS and CLIENTS[request.client_id] == request.client_secret:
         payload = {
             "sub": request.client_id,
-            "exp": datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=30),
+            "exp": datetime.datetime.now() + datetime.timedelta(minutes=60),
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
         return {"access_token": token}
